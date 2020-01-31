@@ -13,7 +13,7 @@ defmodule ApiBankingWeb.UserView do
   def render("user.json", %{user: user}) do
     %{id: user.id,
       name: user.name,
-      username: user.username,
-      password: user.password}
+      username: user.username
+    }
   end
 end

@@ -5,45 +5,46 @@ defmodule ApiBankingWeb.UserControllerTest do
   alias ApiBanking.Financial.User
 
   @create_attrs %{
-    email: "some email",
+    username: Faker.Name.name(),
     name: "some name",
     password: "some password"
   }
   @update_attrs %{
-    email: "some updated email",
+    username: Faker.Name.name(),
     name: "some updated name",
     password: "some updated password"
   }
   @invalid_attrs %{email: nil, name: nil, password: nil}
 
   def fixture(:user) do
-    {:ok, user} = Financial.create_user(@create_attrs)
+    {:ok, user} = Financial.create_user(@create_attrs |> Map.put(:username, Faker.Name.name()))
     user
   end
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    {:ok, token, _} = ApiBanking.Guardian.encode_and_sign(fixture(:user))
+    headers = put_req_header(conn, "accept", "application/json") |> put_req_header("authorization", "Bearer #{token}")
+    {:ok, conn: headers}
   end
 
   describe "index" do
     test "lists all users", %{conn: conn} do
-      conn = get(conn, Routes.user_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+      conn = get(conn, Routes.user_path(conn, :index)) |> doc()
+      assert length(json_response(conn, 200)["data"]) == 1
     end
   end
 
   describe "create user" do
     test "renders user when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
+      username = Faker.Name.name()
+      conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs |> Map.put(:username, username)) |> doc(name: "Name for user", username: "Username for user", password: "Password for user")
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, Routes.user_path(conn, :show, id))
-
       assert %{
                "id" => id,
-               "email" => "some email",
-               "name" => "some name",
-               "password" => "some password"
+               "username" => username,
+               "name" => "some name"
              } = json_response(conn, 200)["data"]
     end
 
@@ -57,16 +58,16 @@ defmodule ApiBankingWeb.UserControllerTest do
     setup [:create_user]
 
     test "renders user when data is valid", %{conn: conn, user: %User{id: id} = user} do
-      conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
+      username = Faker.Name.name()
+      conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs |> Map.put(:username, username))
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, Routes.user_path(conn, :show, id))
 
       assert %{
                "id" => id,
-               "email" => "some updated email",
-               "name" => "some updated name",
-               "password" => "some updated password"
+               "username" => username,
+               "name" => "some updated name"
              } = json_response(conn, 200)["data"]
     end
 

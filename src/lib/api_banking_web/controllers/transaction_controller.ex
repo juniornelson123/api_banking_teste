@@ -6,7 +6,7 @@ defmodule ApiBankingWeb.TransactionController do
 
   action_fallback ApiBankingWeb.FallbackController
 
-  def index(conn, %{account_id: account_id}) do
+  def index(conn, %{"account_id" => account_id}) do
     transactions = Financial.list_transactions(account_id)
     render(conn, "index.json", transactions: transactions)
   end
