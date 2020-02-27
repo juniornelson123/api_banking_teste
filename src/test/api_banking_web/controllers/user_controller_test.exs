@@ -27,6 +27,7 @@ defmodule ApiBankingWeb.UserControllerTest do
     {:ok, conn: headers}
   end
 
+  
   describe "index" do
     test "lists all users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index)) |> doc()
@@ -94,4 +95,5 @@ defmodule ApiBankingWeb.UserControllerTest do
     user = fixture(:user)
     {:ok, user: user}
   end
+  
 end

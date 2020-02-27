@@ -1,6 +1,8 @@
 defmodule ApiBankingWeb.TransferController do
   use ApiBankingWeb, :controller
 
+  use PhoenixSwagger
+
   alias ApiBanking.Financial
   alias ApiBanking.Financial.Transfer
 

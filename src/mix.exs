@@ -20,7 +20,7 @@ defmodule ApiBanking.MixProject do
   def application do
     [
       mod: {ApiBanking.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :phoenix_swagger]
     ]
   end
 
@@ -45,7 +45,9 @@ defmodule ApiBanking.MixProject do
       {:argon2_elixir, "~> 2.0"},
       {:bureaucrat, "~> 0.2.5"},
       {:poison, "~> 3.0"},
-      {:faker, "~> 0.13", only: :test}
+      {:faker, "~> 0.13", only: :test},
+      {:ex_json_schema, "~> 0.5"},
+      {:phoenix_swagger, git: "https://github.com/xerions/phoenix_swagger.git"}
     ]
   end
 
@@ -59,7 +61,8 @@ defmodule ApiBanking.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      "swagger": ["phx.swagger.generate priv/static/swagger.json"]
     ]
   end
 end

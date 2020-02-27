@@ -11,6 +11,21 @@ config :api_banking, ApiBanking.Guardian,
   issuer: "api_banking",
   secret_key: "ChjiHh8T+v2O75TxqEhudrSktNVT2ZoUbM2DolBRCsmR4krJDE+X8i4955vsYcbw"
 
+config :api_banking, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [router: ApiBankingWeb.Router]
+  }
+
+config :api_banking, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      router: ApiBankingWeb.Router,     # phoenix routes will be converted to swagger paths
+      endpoint: ApiBankingWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
+    ]
+  }  
+
+config :phoenix_swagger, json_library: Jason
+
 config :api_banking,
   ecto_repos: [ApiBanking.Repo]
 

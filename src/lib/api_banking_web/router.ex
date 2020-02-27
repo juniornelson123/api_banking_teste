@@ -1,5 +1,6 @@
 defmodule ApiBankingWeb.Router do
   use ApiBankingWeb, :router
+  alias PhoenixSwagger.Plug.Validate
   
   pipeline :jwt_ensure do
     plug ApiBanking.AuthPipeline
@@ -25,5 +26,18 @@ defmodule ApiBankingWeb.Router do
     resources "/transactions", TransactionController, except: [:edit, :new]
     resources "/transfers", TransferController, except: [:edit, :new]
     resources "/accounts", AccountController, except: [:edit, :new]
+  end
+
+  scope "/api/swagger" do
+    forward("/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :api_banking, swagger_file: "swagger.json")
+  end
+
+  def swagger_info do
+    %{
+      info: %{
+        version: "1.0",
+        title: "Api Banking"
+      }
+    }
   end
 end
