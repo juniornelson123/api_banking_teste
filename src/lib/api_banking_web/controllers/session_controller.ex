@@ -43,8 +43,8 @@ defmodule ApiBankingWeb.SessionController do
   end
 
   swagger_path(:show) do
-    summary("My user")
-    description("Show my user")
+    summary("Profile")
+    description("Show profile")
     ApiBanking.CommonSwagger.authorization
     produces("application/json")
     
@@ -84,7 +84,7 @@ defmodule ApiBankingWeb.SessionController do
     response(200, "Sign in success", Schema.ref(:AuthResponse),
       example: %{
         data: %{
-          jwt: "et..",
+          token: "et..",
         }
       }
     )

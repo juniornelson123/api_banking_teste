@@ -2,19 +2,10 @@ defmodule ApiBankingWeb.AccountControllerTest do
   use ApiBankingWeb.ConnCase
 
   alias ApiBanking.Financial
-  alias ApiBanking.Financial.Account
-
+  
   @create_attrs %{
     amount: 1000,
     number: "some number"
-  }
-  @update_attrs %{
-    amount: 456.7,
-    number: "some updated number"
-  }
-  @invalid_attrs %{
-    amount: nil, 
-    number: nil
   }
 
   def fixture(:user) do
@@ -48,41 +39,6 @@ defmodule ApiBankingWeb.AccountControllerTest do
     test "renders account when data is valid", %{conn: conn} do
       conn = post(conn, Routes.account_path(conn, :create), account: @create_attrs |> Map.put(:user_id, fixture(:user).id))
       assert %{"id" => id} = json_response(conn, 201)["data"]
-
-      conn = get(conn, Routes.account_path(conn, :show, id))
-
-      assert %{
-               "id" => id,
-               "amount" => 1.0e0,
-               "number" => "some number"
-             } = json_response(conn, 200)["data"]
-    end
-
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.account_path(conn, :create), account: @invalid_attrs |> Map.put(:user_id, fixture(:user).id))
-      assert json_response(conn, 422)["errors"] != %{}
-    end
-  end
-
-  describe "update account" do
-    setup [:create_account]
-
-    test "renders account when data is valid", %{conn: conn, account: %Account{id: id} = account} do
-      conn = put(conn, Routes.account_path(conn, :update, account), account: @update_attrs |> Map.put(:user_id, fixture(:user).id))
-      assert %{"id" => ^id} = json_response(conn, 200)["data"]
-
-      conn = get(conn, Routes.account_path(conn, :show, id))
-
-      assert %{
-               "id" => id,
-               "amount" => 456.7,
-               "number" => "some updated number"
-             } = json_response(conn, 200)["data"]
-    end
-
-    test "renders errors when data is invalid", %{conn: conn, account: account} do
-      conn = put(conn, Routes.account_path(conn, :update, account), account: @invalid_attrs |> Map.put(:user_id, fixture(:user).id))
-      assert json_response(conn, 422)["errors"] != %{}
     end
   end
 

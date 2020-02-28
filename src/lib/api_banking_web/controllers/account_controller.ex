@@ -151,48 +151,6 @@ defmodule ApiBankingWeb.AccountController do
     render(conn, "show.json", account: account)
   end
 
-  swagger_path(:update) do
-    put("/api/accounts/{id}")
-    summary("Update account")
-    description("Update all attributes of a account")
-    ApiBanking.CommonSwagger.authorization
-    consumes("application/json")
-    produces("application/json")
-
-    parameters do
-      id(:path, :integer, "Account ID", required: true, example: 3)
-
-      account(:body, Schema.ref(:AccountRequest), "The account details",
-        example: %{
-          account: %{amount: 1000, number: "123123123", user_id: 2}
-        }
-      )
-    end
-
-    response(200, "Updated Successfully", Schema.ref(:UserResponse),
-      example: %{
-        data: %{
-          id: 3,
-          user_id: 2,
-          number: "123123123",
-          amount: 1000,
-          inserted_at: "2017-02-08T12:34:55Z",
-          updated_at: "2017-02-12T13:45:23Z"
-        }
-      }
-    )
-  end
-
-
-  def update(conn, %{"id" => id, "account" => account_params}) do
-    account = Financial.get_account!(id)
-    user = ApiBanking.Guardian.Plug.current_resource(conn)
-    
-    with {:ok, %Account{} = account} <- Financial.update_account(account, account_params |> Map.put("user_id", user.id)) do
-      render(conn, "show.json", account: account)
-    end
-  end
-
   swagger_path(:delete) do
     PhoenixSwagger.Path.delete("/api/accounts/{id}")
     summary("Delete account")

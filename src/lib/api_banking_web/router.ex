@@ -1,7 +1,6 @@
 defmodule ApiBankingWeb.Router do
   use ApiBankingWeb, :router
-  alias PhoenixSwagger.Plug.Validate
-  
+    
   pipeline :jwt_ensure do
     plug ApiBanking.AuthPipeline
   end
@@ -22,9 +21,11 @@ defmodule ApiBankingWeb.Router do
     pipe_through [:api, :jwt_ensure]
     
     get "/my_user", SessionController, :show
-    resources "/users", UserController, except: [:edit, :new]
-    resources "/transactions", TransactionController, except: [:edit, :new]
-    resources "/transfers", TransferController, except: [:edit, :new]
+    put "/update_user", UserController, :update
+    resources "/users", UserController, except: [:update, :edit, :new]
+    get "/my_transactions/:account_id", TransactionController, :my_transaction
+    resources "/transactions", TransactionController, only: [:index, :create, :show]
+    resources "/transfers", TransferController, only: [:create, :show]
     resources "/accounts", AccountController, except: [:edit, :new]
   end
 

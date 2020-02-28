@@ -50,41 +50,6 @@ defmodule ApiBankingWeb.UserController do
     }
   end
 
-  swagger_path(:index) do
-    get("/api/users")
-    summary("List Users")
-    ApiBanking.CommonSwagger.authorization
-    description("List all users in the database")
-    produces("application/json")
-
-    response(200, "OK", Schema.ref(:UsersResponse),
-      example: %{
-        data: [
-          %{
-            id: 1,
-            name: "Joe",
-            username: "joe6",
-            inserted_at: "2017-02-08T12:34:55Z",
-            updated_at: "2017-02-12T13:45:23Z"
-          },
-          %{
-            id: 2,
-            name: "Jack",
-            username: "jack7",
-            inserted_at: "2017-02-04T11:24:45Z",
-            updated_at: "2017-02-15T23:15:43Z"
-          }
-        ]
-      }
-    )
-  end
-
-  def index(conn, _params) do
-    users = Financial.list_users()
-    render(conn, "index.json", users: users)
-  end
-
-
   swagger_path(:create) do
     post("/api/users")
     summary("Create user")
@@ -122,42 +87,15 @@ defmodule ApiBankingWeb.UserController do
     end
   end
 
-  swagger_path(:show) do
-    summary("Show User")
-    description("Show a user by ID")
-    ApiBanking.CommonSwagger.authorization
-    produces("application/json")
-    parameter(:id, :path, :integer, "User ID", required: true, example: 123)
-
-    response(200, "OK", Schema.ref(:UserResponse),
-      example: %{
-        data: %{
-          id: 123,
-          name: "Joe",
-          username: "joe3",
-          inserted_at: "2017-02-08T12:34:55Z",
-          updated_at: "2017-02-12T13:45:23Z"
-        }
-      }
-    )
-  end
-
-  def show(conn, %{"id" => id}) do
-    user = Financial.get_user!(id)
-    render(conn, "show.json", user: user)
-  end
-
   swagger_path(:update) do
-    put("/api/users/{id}")
-    summary("Update user")
+    put("/api/update_user")
+    summary("Update my user")
     description("Update all attributes of a user")
     ApiBanking.CommonSwagger.authorization
     consumes("application/json")
     produces("application/json")
 
     parameters do
-      id(:path, :integer, "User ID", required: true, example: 3)
-
       user(:body, Schema.ref(:UserRequest), "The user details",
         example: %{
           user: %{name: "Joe", username: "joe4"}
@@ -178,29 +116,11 @@ defmodule ApiBankingWeb.UserController do
     )
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Financial.get_user!(id)
+  def update(conn, %{"user" => user_params}) do
+    user = ApiBanking.Guardian.Plug.current_resource(conn)
 
     with {:ok, %User{} = user} <- Financial.update_user(user, user_params) do
       render(conn, "show.json", user: user)
-    end
-  end
-
-  swagger_path(:delete) do
-    PhoenixSwagger.Path.delete("/api/users/{id}")
-    summary("Delete User")
-    description("Delete a user by ID")
-    ApiBanking.CommonSwagger.authorization
-    parameter(:id, :path, :integer, "User ID", required: true, example: 3)
-    response(203, "No Content - Deleted Successfully")
-  end
-
-
-  def delete(conn, %{"id" => id}) do
-    user = Financial.get_user!(id)
-
-    with {:ok, %User{}} <- Financial.delete_user(user) do
-      send_resp(conn, :no_content, "")
     end
   end
 end

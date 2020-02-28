@@ -61,8 +61,9 @@ defmodule ApiBanking.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
+      seed: ["run priv/repo/seeds.exs"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
-      "swagger": ["phx.swagger.generate priv/static/swagger.json"]
+      swagger: ["phx.swagger.generate priv/static/swagger.json"]
     ]
   end
 end
