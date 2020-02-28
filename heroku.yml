@@ -5,8 +5,6 @@ setup:
 build:
   docker:
     web: Dockerfile
-  run:
-    web: elixir --sname server -S mix phx.server  
   config:
     MIX_ENV: prod
     SECRET_KEY_BASE: $SECRET_KEY_BASE
@@ -14,3 +12,5 @@ build:
     POSTGRES_DATABASE: $POSTGRES_DATABASE
     POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     POSTGRES_USER: $POSTGRES_USER
+run:
+  web: elixir --sname server -S mix phx.server  
