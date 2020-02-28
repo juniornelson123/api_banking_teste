@@ -4,7 +4,7 @@ defmodule ApiBanking.Financial.Transaction do
 
   schema "transactions" do
     field :amount, :float
-    field :kind, :string
+    field :kind, :string # withdraw transfer
     belongs_to :account, ApiBanking.Financial.Account
     has_one :transfer, ApiBanking.Financial.Transfer
     

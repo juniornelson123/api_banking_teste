@@ -6,14 +6,14 @@ defmodule ApiBanking.FinancialTest do
   describe "users" do
     alias ApiBanking.Financial.User
 
-    @valid_attrs %{email: "some email", name: "some name", password: "some password"}
-    @update_attrs %{email: "some updated email", name: "some updated name", password: "some updated password"}
-    @invalid_attrs %{email: nil, name: nil, password: nil}
+    @valid_attrs %{username: Faker.Name.name(), name: "some name", password: "some password"}
+    @update_attrs %{username: Faker.Name.name(), name: "some updated name", password: "some updated password"}
+    @invalid_attrs %{username: nil, name: nil, password: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(@valid_attrs |> Map.put(:username, Faker.Name.name()))
         |> Financial.create_user()
 
       user
@@ -30,10 +30,10 @@ defmodule ApiBanking.FinancialTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      assert {:ok, %User{} = user} = Financial.create_user(@valid_attrs)
-      assert user.email == "some email"
+      username = Faker.Name.name()
+      assert {:ok, %User{} = user} = Financial.create_user(@valid_attrs |> Map.put(:username, username))
+      assert user.username == username
       assert user.name == "some name"
-      assert user.password == "some password"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -42,10 +42,11 @@ defmodule ApiBanking.FinancialTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      assert {:ok, %User{} = user} = Financial.update_user(user, @update_attrs)
-      assert user.email == "some updated email"
+      username = Faker.Name.name()
+      
+      assert {:ok, %User{} = user} = Financial.update_user(user, @update_attrs|> Map.put(:username, username))
+      assert user.username == username
       assert user.name == "some updated name"
-      assert user.password == "some updated password"
     end
 
     test "update_user/2 with invalid data returns error changeset" do
@@ -76,7 +77,7 @@ defmodule ApiBanking.FinancialTest do
     def account_fixture(attrs \\ %{}) do
       {:ok, account} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(@valid_attrs |> Map.put(:user_id, user_fixture().id ))
         |> Financial.create_account()
 
       account
@@ -93,25 +94,25 @@ defmodule ApiBanking.FinancialTest do
     end
 
     test "create_account/1 with valid data creates a account" do
-      assert {:ok, %Account{} = account} = Financial.create_account(@valid_attrs)
+      assert {:ok, %Account{} = account} = Financial.create_account(@valid_attrs|> Map.put(:user_id, user_fixture().id ))
       assert account.amount == 120.5
       assert account.number == "some number"
     end
 
     test "create_account/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Financial.create_account(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Financial.create_account(@invalid_attrs|> Map.put(:user_id, user_fixture().id ))
     end
 
     test "update_account/2 with valid data updates the account" do
       account = account_fixture()
-      assert {:ok, %Account{} = account} = Financial.update_account(account, @update_attrs)
+      assert {:ok, %Account{} = account} = Financial.update_account(account, @update_attrs|> Map.put(:user_id, user_fixture().id ))
       assert account.amount == 456.7
       assert account.number == "some updated number"
     end
 
     test "update_account/2 with invalid data returns error changeset" do
       account = account_fixture()
-      assert {:error, %Ecto.Changeset{}} = Financial.update_account(account, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Financial.update_account(account, @invalid_attrs|> Map.put(:user_id, user_fixture().id ))
       assert account == Financial.get_account!(account.id)
     end
 
@@ -137,7 +138,7 @@ defmodule ApiBanking.FinancialTest do
     def transaction_fixture(attrs \\ %{}) do
       {:ok, transaction} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(@valid_attrs |> Map.put(:account_id, account_fixture().id ))
         |> Financial.create_transaction()
 
       transaction
@@ -154,25 +155,25 @@ defmodule ApiBanking.FinancialTest do
     end
 
     test "create_transaction/1 with valid data creates a transaction" do
-      assert {:ok, %Transaction{} = transaction} = Financial.create_transaction(@valid_attrs)
+      assert {:ok, %Transaction{} = transaction} = Financial.create_transaction(@valid_attrs |> Map.put(:account_id, account_fixture().id ))
       assert transaction.amount == 120.5
       assert transaction.kind == "some kind"
     end
 
     test "create_transaction/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Financial.create_transaction(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Financial.create_transaction(@invalid_attrs |> Map.put(:account_id, account_fixture().id ))
     end
 
     test "update_transaction/2 with valid data updates the transaction" do
       transaction = transaction_fixture()
-      assert {:ok, %Transaction{} = transaction} = Financial.update_transaction(transaction, @update_attrs)
+      assert {:ok, %Transaction{} = transaction} = Financial.update_transaction(transaction, @update_attrs |> Map.put(:account_id, account_fixture().id ))
       assert transaction.amount == 456.7
       assert transaction.kind == "some updated kind"
     end
 
     test "update_transaction/2 with invalid data returns error changeset" do
       transaction = transaction_fixture()
-      assert {:error, %Ecto.Changeset{}} = Financial.update_transaction(transaction, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Financial.update_transaction(transaction, @invalid_attrs |> Map.put(:account_id, account_fixture().id ))
       assert transaction == Financial.get_transaction!(transaction.id)
     end
 
@@ -187,66 +188,6 @@ defmodule ApiBanking.FinancialTest do
       assert %Ecto.Changeset{} = Financial.change_transaction(transaction)
     end
   end
-
-  describe "transactions" do
-    alias ApiBanking.Financial.Transaction
-
-    @valid_attrs %{amount: 120.5}
-    @update_attrs %{amount: 456.7}
-    @invalid_attrs %{amount: nil}
-
-    def transaction_fixture(attrs \\ %{}) do
-      {:ok, transaction} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Financial.create_transaction()
-
-      transaction
-    end
-
-    test "list_transactions/0 returns all transactions" do
-      transaction = transaction_fixture()
-      assert Financial.list_transactions() == [transaction]
-    end
-
-    test "get_transaction!/1 returns the transaction with given id" do
-      transaction = transaction_fixture()
-      assert Financial.get_transaction!(transaction.id) == transaction
-    end
-
-    test "create_transaction/1 with valid data creates a transaction" do
-      assert {:ok, %Transaction{} = transaction} = Financial.create_transaction(@valid_attrs)
-      assert transaction.amount == 120.5
-    end
-
-    test "create_transaction/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Financial.create_transaction(@invalid_attrs)
-    end
-
-    test "update_transaction/2 with valid data updates the transaction" do
-      transaction = transaction_fixture()
-      assert {:ok, %Transaction{} = transaction} = Financial.update_transaction(transaction, @update_attrs)
-      assert transaction.amount == 456.7
-    end
-
-    test "update_transaction/2 with invalid data returns error changeset" do
-      transaction = transaction_fixture()
-      assert {:error, %Ecto.Changeset{}} = Financial.update_transaction(transaction, @invalid_attrs)
-      assert transaction == Financial.get_transaction!(transaction.id)
-    end
-
-    test "delete_transaction/1 deletes the transaction" do
-      transaction = transaction_fixture()
-      assert {:ok, %Transaction{}} = Financial.delete_transaction(transaction)
-      assert_raise Ecto.NoResultsError, fn -> Financial.get_transaction!(transaction.id) end
-    end
-
-    test "change_transaction/1 returns a transaction changeset" do
-      transaction = transaction_fixture()
-      assert %Ecto.Changeset{} = Financial.change_transaction(transaction)
-    end
-  end
-
   describe "transfers" do
     alias ApiBanking.Financial.Transfer
 
@@ -257,7 +198,7 @@ defmodule ApiBanking.FinancialTest do
     def transfer_fixture(attrs \\ %{}) do
       {:ok, transfer} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(@valid_attrs |> Map.put(:transaction_id, transaction_fixture().id ) |> Map.put(:account_send_id, account_fixture().id ) |> Map.put(:account_received_id, account_fixture().id ))
         |> Financial.create_transfer()
 
       transfer
@@ -274,23 +215,23 @@ defmodule ApiBanking.FinancialTest do
     end
 
     test "create_transfer/1 with valid data creates a transfer" do
-      assert {:ok, %Transfer{} = transfer} = Financial.create_transfer(@valid_attrs)
+      assert {:ok, %Transfer{} = transfer} = Financial.create_transfer(@valid_attrs |> Map.put(:transaction_id, transaction_fixture().id ) |> Map.put(:account_send_id, account_fixture().id ) |> Map.put(:account_received_id, account_fixture().id ))
       assert transfer.amount == 120.5
     end
 
     test "create_transfer/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Financial.create_transfer(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Financial.create_transfer(@invalid_attrs |> Map.put(:transaction_id, transaction_fixture().id ) |> Map.put(:account_send_id, account_fixture().id ) |> Map.put(:account_received_id, account_fixture().id ))
     end
 
     test "update_transfer/2 with valid data updates the transfer" do
       transfer = transfer_fixture()
-      assert {:ok, %Transfer{} = transfer} = Financial.update_transfer(transfer, @update_attrs)
+      assert {:ok, %Transfer{} = transfer} = Financial.update_transfer(transfer, @update_attrs |> Map.put(:transaction_id, transaction_fixture().id ) |> Map.put(:account_send_id, account_fixture().id ) |> Map.put(:account_received_id, account_fixture().id ))
       assert transfer.amount == 456.7
     end
 
     test "update_transfer/2 with invalid data returns error changeset" do
       transfer = transfer_fixture()
-      assert {:error, %Ecto.Changeset{}} = Financial.update_transfer(transfer, @invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Financial.update_transfer(transfer, @invalid_attrs |> Map.put(:transaction_id, transaction_fixture().id ) |> Map.put(:account_send_id, account_fixture().id ) |> Map.put(:account_received_id, account_fixture().id ))
       assert transfer == Financial.get_transfer!(transfer.id)
     end
 

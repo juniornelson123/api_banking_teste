@@ -13,6 +13,10 @@ defmodule ApiBankingWeb.AccountView do
   def render("account.json", %{account: account}) do
     %{id: account.id,
       amount: account.amount,
-      number: account.number}
+      number: account.number,
+      user_id: account.user_id,
+      inserted_at: account.inserted_at,
+      updated_at: account.updated_at,
+    }
   end
 end

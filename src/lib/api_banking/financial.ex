@@ -25,6 +25,7 @@ defmodule ApiBanking.Financial do
         end
     end
   end
+  
   @doc """
   Returns the list of users.
 

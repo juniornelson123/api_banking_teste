@@ -16,8 +16,7 @@ defmodule ApiBankingWeb.ConnCase do
   """
 
   use ExUnit.CaseTemplate
-
-  using do
+  using do  
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
@@ -25,6 +24,7 @@ defmodule ApiBankingWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint ApiBankingWeb.Endpoint
+      import Bureaucrat.Helpers
     end
   end
 

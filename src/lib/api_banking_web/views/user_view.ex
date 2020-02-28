@@ -14,6 +14,8 @@ defmodule ApiBankingWeb.UserView do
     %{id: user.id,
       name: user.name,
       username: user.username,
-      password: user.password}
+      inserted_at: user.inserted_at,
+      updated_at: user.updated_at,
+    }
   end
 end

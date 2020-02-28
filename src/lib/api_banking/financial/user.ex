@@ -6,7 +6,7 @@ defmodule ApiBanking.Financial.User do
     field :username, :string
     field :name, :string
     field :password, :string
-    
+    field :admin, :boolean, default: false    
     has_many :accounts, ApiBanking.Financial.Account
     
     timestamps()
@@ -15,7 +15,7 @@ defmodule ApiBanking.Financial.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :username, :password])
+    |> cast(attrs, [:name, :username, :password, :admin])
     |> validate_required([:name, :username, :password])
     |> unique_constraint(:username)
     |> put_password_hash
