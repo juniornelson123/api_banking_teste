@@ -29,5 +29,4 @@ RUN mix deps.get
 
 
 # Add the rest of your app, and compile for production
-ADD . 
 RUN mix compile
