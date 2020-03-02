@@ -115,7 +115,7 @@ defmodule ApiBankingWeb.TransactionController do
         |> render("error.json", error: "Not authorized, you must be an admin to access this feature")
     end
   end
-  
+
   swagger_path(:my_transaction) do
     get("/api/my_transactions/{account_id}")
     summary("My Transactions")
@@ -228,6 +228,7 @@ defmodule ApiBankingWeb.TransactionController do
     if account.amount > transaction_params["amount"] do
       with {:ok, %Transaction{} = transaction} <- Financial.create_transaction(transaction_params |> Map.put("kind", "withdraw")) do
         decrease_balance(transaction.amount, account)
+        send_email(conn)
         conn
         |> put_status(:created)
         |> put_resp_header("location", Routes.transaction_path(conn, :show, transaction))
@@ -282,7 +283,7 @@ defmodule ApiBankingWeb.TransactionController do
       }
     )
   end
-  
+
 
   def show(conn, %{"id" => id}) do
     transaction = Financial.get_transaction!(id)
@@ -291,6 +292,11 @@ defmodule ApiBankingWeb.TransactionController do
 
   defp decrease_balance(amount, account) do
     Financial.update_account(account, %{amount: account.amount - amount})
+  end
+
+  defp send_email(conn) do
+    user = ApiBanking.Guardian.Plug.current_resource(conn)
+    IO.puts "Send email to #{user.email}"
   end
 
 end
