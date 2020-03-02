@@ -1,6 +1,7 @@
 version: '2'
 services:
   api:
+    command: 'bash -c ''mix phx.server'''
     # tell docker-compose which Dockerfile it needs to build
     build: .
     # map the port of phoenix to the local dev port
