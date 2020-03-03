@@ -11,12 +11,16 @@ RUN mix local.hex --force \
  && apt-get install -y inotify-tools \
  && mix local.rebar --force
 
-ENV APP_HOME .
-# RUN mkdir -p $APP_HOME
+ENV APP_HOME /app
+RUN mkdir -p $APP_HOME
 # RUN 'cd /app ; ls'
 WORKDIR $APP_HOME
 
+COPY . .
+
 RUN mix deps.get
+RUN mix ecto.create
+RUN mix ecto.migrate
 RUN mix phx.server
 
 EXPOSE 4000
