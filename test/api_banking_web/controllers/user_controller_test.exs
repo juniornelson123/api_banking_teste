@@ -2,17 +2,11 @@ defmodule ApiBankingWeb.UserControllerTest do
   use ApiBankingWeb.ConnCase
 
   alias ApiBanking.Financial
-  alias ApiBanking.Financial.User
 
   @create_attrs %{
     username: Faker.Name.name(),
     name: "some name",
     password: "some password"
-  }
-  @update_attrs %{
-    username: Faker.Name.name(),
-    name: "some updated name",
-    password: "some updated password"
   }
   @invalid_attrs %{email: nil, name: nil, password: nil}
 

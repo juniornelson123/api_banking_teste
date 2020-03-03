@@ -33,22 +33,10 @@ A API foi desenvolvida utilizando Elixir + Phoenix Framework, possibilitando o c
 
 ### Atualizar Dependências
 
-```
-docker-compose run --rm api mix deps.get ou ./mix deps.get
-```
+```docker-compose run --rm api mix deps.get ```
+ou 
+```./mix deps.get```
 
-### Banco de dados
-
-Alterar configurações de banco no arquivo /config/dev.exs:
-
-```
- config :app, APP.Repo,
-	username:  "user",
-	password:  "password",
-	database:  "app_dev",
-	hostname:  "localhost",
-	pool_size:  10
-```
 ### Criar Banco de Dados
 
 ```docker-compose run --rm api mix ecto.create``` 
