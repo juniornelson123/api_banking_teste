@@ -81,7 +81,7 @@ defmodule ApiBankingWeb.TransactionController do
                 amount: 600.0,
                 id: 1,
                 user_id: 3,
-                number: "user.id",
+                number: "fake_account_number",
                 inserted_at: "2020-01-30T20:44:20",
                 updated_at: "2020-02-28T15:04:10",
               },
@@ -89,7 +89,7 @@ defmodule ApiBankingWeb.TransactionController do
               account_send: %{
                 id: 2,
                 amount: 400.0,
-                number: "user.id",
+                number: "fake_account_number",
                 user_id: 3,
                 inserted_at: "2020-02-28T14:57:10",
                 updated_at: "2020-02-28T15:03:59",
@@ -145,7 +145,7 @@ defmodule ApiBankingWeb.TransactionController do
                 amount: 600.0,
                 id: 1,
                 user_id: 3,
-                number: "user.id",
+                number: "fake_account_number",
                 inserted_at: "2020-01-30T20:44:20",
                 updated_at: "2020-02-28T15:04:10",
               },
@@ -153,7 +153,7 @@ defmodule ApiBankingWeb.TransactionController do
               account_send: %{
                 id: 2,
                 amount: 400.0,
-                number: "user.id",
+                number: "fake_account_number",
                 user_id: 3,
                 inserted_at: "2020-02-28T14:57:10",
                 updated_at: "2020-02-28T15:03:59",
@@ -201,7 +201,7 @@ defmodule ApiBankingWeb.TransactionController do
               amount: 600.0,
               id: 1,
               user_id: 3,
-              number: "user.id",
+              number: "fake_account_number",
               inserted_at: "2020-01-30T20:44:20",
               updated_at: "2020-02-28T15:04:10",
             },
@@ -209,7 +209,7 @@ defmodule ApiBankingWeb.TransactionController do
             account_send: %{
               id: 2,
               amount: 400.0,
-              number: "user.id",
+              number: "fake_account_number",
               user_id: 3,
               inserted_at: "2020-02-28T14:57:10",
               updated_at: "2020-02-28T15:03:59",
@@ -262,7 +262,7 @@ defmodule ApiBankingWeb.TransactionController do
               amount: 600.0,
               id: 1,
               user_id: 3,
-              number: "user.id",
+              number: "fake_account_number",
               inserted_at: "2020-01-30T20:44:20",
               updated_at: "2020-02-28T15:04:10",
             },
@@ -270,7 +270,7 @@ defmodule ApiBankingWeb.TransactionController do
             account_send: %{
               id: 2,
               amount: 400.0,
-              number: "user.id",
+              number: "fake_account_number",
               user_id: 3,
               inserted_at: "2020-02-28T14:57:10",
               updated_at: "2020-02-28T15:03:59",
@@ -296,7 +296,7 @@ defmodule ApiBankingWeb.TransactionController do
 
   defp send_email(conn) do
     user = ApiBanking.Guardian.Plug.current_resource(conn)
-    IO.puts "Send email to #{user.email}"
+    IO.puts "Send email to #{user.username}"
   end
 
 end

@@ -30,7 +30,6 @@ defmodule ApiBankingWeb.AccountController do
         swagger_schema do
           title("AccountRequest")
           description("POST body for creating a account")
-          property(:account, Schema.ref(:Account), "The account details")
         end,
       AccountResponse:
         swagger_schema do
@@ -88,7 +87,7 @@ defmodule ApiBankingWeb.AccountController do
     post("/api/accounts")
     summary("Create account")
     ApiBanking.CommonSwagger.authorization
-    description("Creates a new account")
+    description("Creates a new account (No body required)")
     consumes("application/json")
     produces("application/json")
 
@@ -112,7 +111,7 @@ defmodule ApiBankingWeb.AccountController do
 
   def create(conn, _params) do
     user = ApiBanking.Guardian.Plug.current_resource(conn)
-    account_params = %{number: "user.id", amount: 1000, user_id: user.id}
+    account_params = %{number: "fake_account_number", amount: 1000, user_id: user.id}
     with {:ok, %Account{} = account} <- Financial.create_account(account_params) do
       conn
       |> put_status(:created)

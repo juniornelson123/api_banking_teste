@@ -34,7 +34,7 @@ defmodule ApiBankingWeb.TransferController do
         swagger_schema do
           title("TransferRequest")
           description("POST body for creating a Transfer")
-          property(:Transfer, Schema.ref(:Transfer), "The Transfer details")
+          property(:transfer, Schema.ref(:Transfer), "The Transfer details")
         end,
       TransferResponse:
         swagger_schema do
@@ -75,7 +75,7 @@ defmodule ApiBankingWeb.TransferController do
           account_received: %{
             id: 1,
             amount: 700.0,
-            number: "user.id",
+            number: "fake_account_number",
             user_id: 3,
             inserted_at: "2020-01-30T20:44:20",
             updated_at: "2020-02-28T15:03:59",
@@ -84,7 +84,7 @@ defmodule ApiBankingWeb.TransferController do
           account_send: %{
             id: 2,
             amount: 400.0,
-            number: "user.id",
+            number: "fake_account_number",
             user_id: 3,
             inserted_at: "2020-02-28T14:57:10",
             updated_at: "2020-02-28T15:03:59",
