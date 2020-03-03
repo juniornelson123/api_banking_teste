@@ -1,6 +1,6 @@
 defmodule ApiBankingWeb.Router do
   use ApiBankingWeb, :router
-    
+
   pipeline :jwt_ensure do
     plug ApiBanking.AuthPipeline
   end
@@ -11,15 +11,15 @@ defmodule ApiBankingWeb.Router do
 
   scope "/api", ApiBankingWeb do
     pipe_through :api
-    
+
     post "/sign_in", SessionController, :login
-    
+
     resources "/users", UserController, only: [:create]
   end
-  
+
   scope "/api", ApiBankingWeb do
     pipe_through [:api, :jwt_ensure]
-    
+
     get "/my_user", SessionController, :show
     put "/update_user", UserController, :update
     resources "/users", UserController, except: [:update, :edit, :new]
@@ -29,7 +29,7 @@ defmodule ApiBankingWeb.Router do
     resources "/accounts", AccountController, except: [:edit, :new]
   end
 
-  scope "/api/swagger" do
+  scope "/api/docs" do
     forward("/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :api_banking, swagger_file: "swagger.json")
   end
 
