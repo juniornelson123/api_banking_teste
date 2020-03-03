@@ -20,9 +20,10 @@ WORKDIR $APP_HOME
 COPY . .
 
 RUN mix deps.get
+RUN mix compile
 # RUN mix ecto.create
 # RUN mix ecto.migrate
-# RUN mix phx.server
+CMD mix phx.server
 
 EXPOSE 4000
 
