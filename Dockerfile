@@ -14,9 +14,10 @@ RUN mix local.hex --force \
 ENV APP_HOME .
 # RUN mkdir -p $APP_HOME
 # RUN 'cd /app ; ls'
+WORKDIR $APP_HOME
+
 RUN mix deps.get
 RUN mix phx.server
-# WORKDIR $APP_HOME
 
 EXPOSE 4000
 
