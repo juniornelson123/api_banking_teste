@@ -29,7 +29,7 @@ defmodule ApiBankingWeb.Router do
     resources "/accounts", AccountController, except: [:edit, :new]
   end
 
-  scope "/api/docs" do
+  scope "/api/documentation" do
     forward("/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :api_banking, swagger_file: "swagger.json")
   end
 
