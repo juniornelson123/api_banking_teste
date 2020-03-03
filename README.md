@@ -97,7 +97,19 @@ Disponível: https://advanced-boiling-butterfly.gigalixirapp.com/api/documentati
 
 https://advanced-boiling-butterfly.gigalixirapp.com/api/documentation
 
+## Usuarios para teste
 
+username: user1 
+name: user1
+password: user1@banking
+
+username: user2 
+name: user2
+password: user2@banking
+
+username: admin 
+name: admin
+password: admin@banking
 
 ## License
 
