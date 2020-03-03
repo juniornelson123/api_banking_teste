@@ -11,6 +11,7 @@ RUN mix local.hex --force \
  && apt-get install -y inotify-tools \
  && mix local.rebar --force
 
+ENV MIX_ENV prod
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
 # RUN 'cd /app ; ls'
@@ -19,7 +20,7 @@ WORKDIR $APP_HOME
 COPY . .
 
 RUN mix deps.get
-RUN mix ecto.create
+# RUN mix ecto.create
 RUN mix ecto.migrate
 RUN mix phx.server
 
@@ -28,7 +29,6 @@ EXPOSE 4000
 # CMD ["cd /app", "deps.get", "mix", "phx.server"]
 
 # # Compile elixir files for production
-# ENV MIX_ENV prod
 # # This prevents us from installing devDependencies
 # ENV NODE_ENV production
 
