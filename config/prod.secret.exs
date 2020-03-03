@@ -4,8 +4,7 @@
 # remember to add this file to your .gitignore.
 use Mix.Config
 
-database_url = System.get_env("HEROKU_POSTGRESQL_COBALT_URL") ||
-    raise """
+database_url = System.get_env("HEROKU_POSTGRESQL_COBALT_URL") || raise """
     environment variable DATABASE_URL is missing.
     For example: ecto://USER:PASS@HOST/DATABASE
     """
