@@ -71,7 +71,7 @@ Alterar configurações de banco no arquivo /config/dev.exs:
 
 ```docker-compose up```
 
-Disponível: http://localhost:4000
+Disponível: http://localhost:4000/api/documentation
 
 ### Gerar Documentação
 
@@ -80,6 +80,11 @@ Disponível: http://localhost:4000
 ```./mix swagger```
 
 Disponível: http://localhost:4000/api/documentation
+
+### Testes
+
+```docker-compose run --rm api mix test```
+
 
 ### Shell
 

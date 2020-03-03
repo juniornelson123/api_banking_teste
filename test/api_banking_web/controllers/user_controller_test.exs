@@ -30,7 +30,7 @@ defmodule ApiBankingWeb.UserControllerTest do
   describe "create user" do
     test "renders user when data is valid", %{conn: conn} do
       username = Faker.Name.name()
-      conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs |> Map.put(:username, username)) |> doc(name: "Name for user", username: "Username for user", password: "Password for user")
+      conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs |> Map.put(:username, username))
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
     end

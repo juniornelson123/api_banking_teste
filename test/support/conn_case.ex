@@ -24,7 +24,6 @@ defmodule ApiBankingWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint ApiBankingWeb.Endpoint
-      import Bureaucrat.Helpers
     end
   end
 
