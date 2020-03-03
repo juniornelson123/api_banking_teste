@@ -4,7 +4,7 @@
 # remember to add this file to your .gitignore.
 use Mix.Config
 
-database_url = System.get_env("HEROKU_POSTGRESQL_COBALT_URL")
+database_url = System.get_env("DATABASE_URL")
 
 config :api_banking, ApiBanking.Repo,
   ssl: true,
