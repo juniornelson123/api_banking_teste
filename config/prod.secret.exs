@@ -12,12 +12,7 @@ config :api_banking, ApiBanking.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   database: "your_db_name_here"
 
-secret_key_base =
-  System.get_env("SECRET_KEY_BASE") ||
-    raise """
-    environment variable SECRET_KEY_BASE is missing.
-    You can generate one by calling: mix phx.gen.secret
-    """
+secret_key_base = System.get_env("SECRET_KEY_BASE")
 
 config :api_banking, ApiBankingWeb.Endpoint,
   http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
