@@ -27,14 +27,13 @@ RUN mix deps.compile
 RUN mix compile
 # RUN mix ecto.create
 # RUN mix ecto.migrate
-RUN mix local.hex --force
 
 
-CMD mix phx.server
+# RUN  && mix phx.server
 
 EXPOSE 4000
 
-# CMD ["cd /app", "deps.get", "mix", "phx.server"]
+CMD ["mix local.hex --force", "mix phx.server"]
 
 # # Compile elixir files for production
 # # This prevents us from installing devDependencies
