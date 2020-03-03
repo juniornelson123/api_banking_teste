@@ -51,15 +51,21 @@ Alterar configurações de banco no arquivo /config/dev.exs:
 ```
 ### Criar Banco de Dados
 
-```docker-compose run --rm api mix ecto.create``` ou ```./mix ecto.create```
+```docker-compose run --rm api mix ecto.create``` 
+  ou 
+```./mix ecto.create```
 
 ### Migrações Banco de Dados
 
-```docker-compose run --rm api mix ecto.migrate``` ou ```./mix ecto.migrate```
+```docker-compose run --rm api mix ecto.migrate``` 
+  ou 
+```./mix ecto.migrate```
 
 ### Semear Banco de Dados
 
-```docker-compose run --rm api mix seed``` ou ```./mix seed```
+```docker-compose run --rm api mix seed``` 
+  ou 
+```./mix seed```
 
 ### Iniciar Servidor
 
@@ -69,7 +75,9 @@ Disponível: http://localhost:4000
 
 ### Gerar Documentação
 
-```docker-compose run --rm api mix swagger``` ou ```./mix swagger```
+```docker-compose run --rm api mix swagger``` 
+  ou 
+```./mix swagger```
 
 Disponível: http://localhost:4000/api/documentation
 
