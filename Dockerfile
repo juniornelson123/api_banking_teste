@@ -17,16 +17,16 @@ WORKDIR $APP_HOME
 
 EXPOSE 4000
 
-#CMD ["mix", "phx.server", "deps.get"]
+CMD ["cd /app", "deps.get", "mix", "phx.server"]
 
-# Compile elixir files for production
-ENV MIX_ENV prod
-# This prevents us from installing devDependencies
-ENV NODE_ENV production
+# # Compile elixir files for production
+# ENV MIX_ENV prod
+# # This prevents us from installing devDependencies
+# ENV NODE_ENV production
 
-# We add manifests first, to cache deps on successive rebuilds
-RUN mix deps.get
+# # We add manifests first, to cache deps on successive rebuilds
+# RUN mix deps.get
 
 
-# Add the rest of your app, and compile for production
-RUN mix compile
+# # Add the rest of your app, and compile for production
+# RUN mix compile
