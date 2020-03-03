@@ -24,11 +24,7 @@ defmodule ApiBankingWeb.AccountController do
             updated_at(:string, "Update timestamp", format: :datetime)
           end
 
-          example(%{
-            amount: 2000,
-            number: "12312321",
-            user_id: 1
-          })
+          example(%{})
         end,
       AccountRequest:
         swagger_schema do
