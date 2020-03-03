@@ -53,7 +53,6 @@ defmodule ApiBankingWeb.UserController do
   swagger_path(:create) do
     post("/api/users")
     summary("Create user")
-    ApiBanking.CommonSwagger.authorization
     description("Creates a new user")
     consumes("application/json")
     produces("application/json")

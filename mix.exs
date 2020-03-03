@@ -43,7 +43,6 @@ defmodule ApiBanking.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 2.0"},
       {:argon2_elixir, "~> 2.0"},
-      {:bureaucrat, "~> 0.2.5"},
       {:poison, "~> 3.0"},
       {:faker, "~> 0.13", only: :test},
       {:ex_json_schema, "~> 0.5"},

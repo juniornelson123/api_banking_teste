@@ -54,7 +54,7 @@ defmodule ApiBankingWeb.TransactionController do
 
   swagger_path(:index) do
     get("/api/transactions")
-    summary("All Transactions")
+    summary("All Transactions (Backoffice)")
     ApiBanking.CommonSwagger.authorization
     description("List all transactions in the database(only user admin)")
     produces("application/json")

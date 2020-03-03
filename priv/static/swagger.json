@@ -83,7 +83,7 @@
       "description": "Authentication for api",
       "example": {
         "password": "12345678",
-        "username": "joe@gmail.com"
+        "username": "joegomes"
       },
       "properties": {
         "id": {
@@ -109,7 +109,7 @@
     "AuthRequest": {
       "description": "POST body for creating a Auth",
       "properties": {
-        "auth": {
+        "user": {
           "$ref": "#/definitions/Auth",
           "description": "The Auth details"
         }

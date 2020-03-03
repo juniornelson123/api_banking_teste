@@ -12,7 +12,7 @@ RUN mix local.hex --force \
  && mix local.rebar --force
 
 
-ENV MIX_ENV prod
+# ENV MIX_ENV dev
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
 # RUN 'cd /app ; ls'

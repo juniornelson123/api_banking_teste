@@ -17,7 +17,7 @@ defmodule ApiBankingWeb.SessionController do
           end
 
           example(%{
-            username: "joe@gmail.com",
+            username: "joegomes",
             password: "12345678"
           })
         end,
@@ -25,7 +25,7 @@ defmodule ApiBankingWeb.SessionController do
         swagger_schema do
           title("AuthRequest")
           description("POST body for creating a Auth")
-          property(:auth, Schema.ref(:Auth), "The Auth details")
+          property(:user, Schema.ref(:Auth), "The Auth details")
         end,
       AuthResponse:
         swagger_schema do
@@ -70,7 +70,6 @@ defmodule ApiBankingWeb.SessionController do
   swagger_path(:login) do
     post("/api/sign_in")
     summary("Sign in user")
-    ApiBanking.CommonSwagger.authorization
     description("Sign in user")
     consumes("application/json")
     produces("application/json")
