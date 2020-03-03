@@ -13,11 +13,14 @@ RUN mix local.hex --force \
 
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
+RUN cd $APP_HOME
+RUN mix deps.get
+RUN mix phx.server
 WORKDIR $APP_HOME
 
 EXPOSE 4000
 
-CMD ["cd /app", "deps.get", "mix", "phx.server"]
+# CMD ["cd /app", "deps.get", "mix", "phx.server"]
 
 # # Compile elixir files for production
 # ENV MIX_ENV prod
