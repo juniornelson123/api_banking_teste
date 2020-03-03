@@ -75,7 +75,7 @@ Disponível: http://localhost:4000/api/documentation
 
 ### Shell
 
-```./run iex -S mix```
+```docker-compose run --rm api iex -S mix```
 
 
 ### [](https://github.com/juniornelson123/blob/master/readme/README_pt.md#lan%C3%A7amentos-principais)Lançamentos Principais
