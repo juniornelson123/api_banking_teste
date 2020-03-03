@@ -14,6 +14,7 @@ RUN mix local.hex --force \
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
 RUN cd $APP_HOME
+RUN cd app
 RUN ls
 # RUN mix deps.get
 # RUN mix phx.server
