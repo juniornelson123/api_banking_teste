@@ -1,0 +1,1185 @@
+{
+  "definitions": {
+    "Account": {
+      "description": "A account of the app",
+      "example": {
+        "amount": 2000,
+        "number": "12312321",
+        "user_id": 1
+      },
+      "properties": {
+        "amount": {
+          "description": "account amount",
+          "type": "float"
+        },
+        "id": {
+          "description": "account ID",
+          "type": "integer"
+        },
+        "inserted_at": {
+          "description": "Creation timestamp",
+          "format": "datetime",
+          "type": "string"
+        },
+        "number": {
+          "description": "account number",
+          "type": "string"
+        },
+        "updated_at": {
+          "description": "Update timestamp",
+          "format": "datetime",
+          "type": "string"
+        },
+        "user_id": {
+          "description": "Password address",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "user_id",
+        "number",
+        "amount"
+      ],
+      "title": "Account",
+      "type": "object"
+    },
+    "AccountRequest": {
+      "description": "POST body for creating a account",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/Account",
+          "description": "The account details"
+        }
+      },
+      "title": "AccountRequest",
+      "type": "object"
+    },
+    "AccountResponse": {
+      "description": "Response schema for single account",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Account",
+          "description": "The account details"
+        }
+      },
+      "title": "AccountResponse",
+      "type": "object"
+    },
+    "AccountsResponse": {
+      "description": "Response schema for multiple accounts",
+      "properties": {
+        "data": {
+          "description": "The accounts details",
+          "items": {
+            "$ref": "#/definitions/Account"
+          },
+          "type": "array"
+        }
+      },
+      "title": "AccountsReponse",
+      "type": "object"
+    },
+    "Auth": {
+      "description": "Authentication for api",
+      "example": {
+        "password": "12345678",
+        "username": "joe@gmail.com"
+      },
+      "properties": {
+        "id": {
+          "description": "User ID",
+          "type": "integer"
+        },
+        "password": {
+          "description": "Session password",
+          "type": "string"
+        },
+        "username": {
+          "description": "Session username",
+          "type": "string"
+        }
+      },
+      "required": [
+        "password",
+        "username"
+      ],
+      "title": "Auth",
+      "type": "object"
+    },
+    "AuthRequest": {
+      "description": "POST body for creating a Auth",
+      "properties": {
+        "auth": {
+          "$ref": "#/definitions/Auth",
+          "description": "The Auth details"
+        }
+      },
+      "title": "AuthRequest",
+      "type": "object"
+    },
+    "AuthResponse": {
+      "description": "Response schema for single Auth",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Auth",
+          "description": "The Auth details"
+        }
+      },
+      "title": "AuthResponse",
+      "type": "object"
+    },
+    "AuthsResponse": {
+      "description": "Response schema for multiple Auths",
+      "properties": {
+        "data": {
+          "description": "The Auths details",
+          "items": {
+            "$ref": "#/definitions/Auth"
+          },
+          "type": "array"
+        }
+      },
+      "title": "AuthsReponse",
+      "type": "object"
+    },
+    "Transaction": {
+      "description": "A transaction of the app",
+      "example": {
+        "account_id": 1,
+        "amount": 2000,
+        "kind": "withdraw"
+      },
+      "properties": {
+        "account_id": {
+          "description": "transaction account_id",
+          "type": "integer"
+        },
+        "amount": {
+          "description": "transaction amount",
+          "type": "float"
+        },
+        "id": {
+          "description": "transaction ID",
+          "type": "integer"
+        },
+        "inserted_at": {
+          "description": "Creation timestamp",
+          "format": "datetime",
+          "type": "string"
+        },
+        "kind": {
+          "description": "transaction kind (withdraw transfer)",
+          "type": "string"
+        },
+        "updated_at": {
+          "description": "Update timestamp",
+          "format": "datetime",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id",
+        "kind",
+        "amount"
+      ],
+      "title": "Transaction",
+      "type": "object"
+    },
+    "TransactionRequest": {
+      "description": "POST body for creating a Transaction",
+      "properties": {
+        "transaction": {
+          "$ref": "#/definitions/Transaction",
+          "description": "The Transaction details"
+        }
+      },
+      "title": "TransactionRequest",
+      "type": "object"
+    },
+    "TransactionResponse": {
+      "description": "Response schema for single Transaction",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Transaction",
+          "description": "The Transaction details"
+        }
+      },
+      "title": "TransactionResponse",
+      "type": "object"
+    },
+    "TransactionsResponse": {
+      "description": "Response schema for multiple Transactions",
+      "properties": {
+        "data": {
+          "description": "The Transactions details",
+          "items": {
+            "$ref": "#/definitions/Transaction"
+          },
+          "type": "array"
+        }
+      },
+      "title": "TransactionsReponse",
+      "type": "object"
+    },
+    "Transfer": {
+      "description": "A transfer of the app",
+      "example": {
+        "account_received_id": 2,
+        "account_send_id": 1,
+        "amount": 1000
+      },
+      "properties": {
+        "account_received_id": {
+          "description": "transfer account for receiver",
+          "type": "string"
+        },
+        "account_send_id": {
+          "description": "transfer account for send",
+          "type": "string"
+        },
+        "amount": {
+          "description": "transfer amount",
+          "type": "float"
+        },
+        "id": {
+          "description": "transfer ID",
+          "type": "integer"
+        },
+        "inserted_at": {
+          "description": "Creation timestamp",
+          "format": "datetime",
+          "type": "string"
+        },
+        "updated_at": {
+          "description": "Update timestamp",
+          "format": "datetime",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_received_id",
+        "account_send_id",
+        "amount"
+      ],
+      "title": "Transfer",
+      "type": "object"
+    },
+    "TransferRequest": {
+      "description": "POST body for creating a Transfer",
+      "properties": {
+        "Transfer": {
+          "$ref": "#/definitions/Transfer",
+          "description": "The Transfer details"
+        }
+      },
+      "title": "TransferRequest",
+      "type": "object"
+    },
+    "TransferResponse": {
+      "description": "Response schema for single Transfer",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Transfer",
+          "description": "The Transfer details"
+        }
+      },
+      "title": "TransferResponse",
+      "type": "object"
+    },
+    "TransfersResponse": {
+      "description": "Response schema for multiple Transfers",
+      "properties": {
+        "data": {
+          "description": "The Transfers details",
+          "items": {
+            "$ref": "#/definitions/Transfer"
+          },
+          "type": "array"
+        }
+      },
+      "title": "TransfersReponse",
+      "type": "object"
+    },
+    "User": {
+      "description": "A user of the app",
+      "example": {
+        "name": "Joe",
+        "password": "12345678",
+        "username": "joe@gmail.com"
+      },
+      "properties": {
+        "id": {
+          "description": "User ID",
+          "type": "integer"
+        },
+        "inserted_at": {
+          "description": "Creation timestamp",
+          "format": "datetime",
+          "type": "string"
+        },
+        "name": {
+          "description": "User name",
+          "type": "string"
+        },
+        "password": {
+          "description": "Password address",
+          "format": "password",
+          "type": "string"
+        },
+        "updated_at": {
+          "description": "Update timestamp",
+          "format": "datetime",
+          "type": "string"
+        },
+        "username": {
+          "description": "Username address",
+          "format": "username",
+          "type": "string"
+        }
+      },
+      "required": [
+        "password",
+        "username",
+        "name"
+      ],
+      "title": "User",
+      "type": "object"
+    },
+    "UserRequest": {
+      "description": "POST body for creating a user",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/User",
+          "description": "The user details"
+        }
+      },
+      "title": "UserRequest",
+      "type": "object"
+    },
+    "UserResponse": {
+      "description": "Response schema for single user",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/User",
+          "description": "The user details"
+        }
+      },
+      "title": "UserResponse",
+      "type": "object"
+    },
+    "UsersResponse": {
+      "description": "Response schema for multiple users",
+      "properties": {
+        "data": {
+          "description": "The users details",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "type": "array"
+        }
+      },
+      "title": "UsersReponse",
+      "type": "object"
+    }
+  },
+  "host": "localhost:4000",
+  "info": {
+    "title": "Api Banking",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/accounts": {
+      "get": {
+        "description": "List all my accounts in the database",
+        "operationId": "ApiBankingWeb.AccountController.index",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "data": [
+                  {
+                    "amount": 2000,
+                    "id": 1,
+                    "inserted_at": "2017-02-08T12:34:55Z",
+                    "number": "12312321",
+                    "updated_at": "2017-02-12T13:45:23Z",
+                    "user_id": 1
+                  },
+                  {
+                    "amount": 2000,
+                    "id": 2,
+                    "inserted_at": "2017-02-08T12:34:55Z",
+                    "number": "22312321",
+                    "updated_at": "2017-02-12T13:45:23Z",
+                    "user_id": 1
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/AccountsResponse"
+            }
+          }
+        },
+        "summary": "My Accounts",
+        "tags": [
+          "Account"
+        ]
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Creates a new account",
+        "operationId": "ApiBankingWeb.AccountController.create",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The Account details",
+            "in": "body",
+            "name": "user",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/AccountRequest"
+            },
+            "x-example": {}
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Account created OK",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "amount": 1.0,
+                  "id": 1,
+                  "inserted_at": "2017-02-08T12:34:55Z",
+                  "number": "12312321",
+                  "updated_at": "2017-02-12T13:45:23Z",
+                  "user_id": 1
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/AccountResponse"
+            }
+          }
+        },
+        "summary": "Create account",
+        "tags": [
+          "Account"
+        ]
+      }
+    },
+    "/api/accounts/{id}": {
+      "delete": {
+        "description": "Delete a account by ID",
+        "operationId": "ApiBankingWeb.AccountController.delete",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "account ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "x-example": 3
+          }
+        ],
+        "responses": {
+          "203": {
+            "description": "No Content - Deleted Successfully"
+          }
+        },
+        "summary": "Delete account",
+        "tags": [
+          "Account"
+        ]
+      },
+      "get": {
+        "description": "Show a account by ID",
+        "operationId": "ApiBankingWeb.AccountController.show",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Account ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "x-example": 1
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "amount": 1.0,
+                  "id": 1,
+                  "inserted_at": "2017-02-08T12:34:55Z",
+                  "number": "12312321",
+                  "updated_at": "2017-02-12T13:45:23Z",
+                  "user_id": 1
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/AccountResponse"
+            }
+          }
+        },
+        "summary": "Show Account",
+        "tags": [
+          "Account"
+        ]
+      }
+    },
+    "/api/my_transactions/{account_id}": {
+      "get": {
+        "description": "List all my transactions with account in the database",
+        "operationId": "ApiBankingWeb.TransactionController.my_transaction",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "data": [
+                  {
+                    "account_id": 1,
+                    "amount": 2000,
+                    "id": 1,
+                    "inserted_at": "2017-02-08T12:34:55Z",
+                    "kind": "withdraw",
+                    "updated_at": "2017-02-12T13:45:23Z"
+                  },
+                  {
+                    "account_id": 2,
+                    "amount": 100.0,
+                    "id": 2,
+                    "inserted_at": "2020-02-28T15:01:24",
+                    "kind": "transfer",
+                    "transfer": {
+                      "account_received": {
+                        "amount": 600.0,
+                        "id": 1,
+                        "inserted_at": "2020-01-30T20:44:20",
+                        "number": "user.id",
+                        "updated_at": "2020-02-28T15:04:10",
+                        "user_id": 3
+                      },
+                      "account_received_id": 1,
+                      "account_send": {
+                        "amount": 400.0,
+                        "id": 2,
+                        "inserted_at": "2020-02-28T14:57:10",
+                        "number": "user.id",
+                        "updated_at": "2020-02-28T15:03:59",
+                        "user_id": 3
+                      },
+                      "account_send_id": 2,
+                      "id": 3
+                    },
+                    "updated_at": "2020-02-28T15:01:24"
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/TransactionResponse"
+            }
+          }
+        },
+        "summary": "My Transactions",
+        "tags": [
+          "Transaction"
+        ]
+      }
+    },
+    "/api/my_user": {
+      "get": {
+        "description": "Show profile",
+        "operationId": "ApiBankingWeb.SessionController.show",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "id": 1,
+                  "inserted_at": "2017-02-08T12:34:55Z",
+                  "name": "Joel",
+                  "password": "encode",
+                  "updated_at": "2017-02-12T13:45:23Z",
+                  "username": "joel4"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          }
+        },
+        "summary": "Profile",
+        "tags": [
+          "Session"
+        ]
+      }
+    },
+    "/api/sign_in": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Sign in user",
+        "operationId": "ApiBankingWeb.SessionController.login",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The Auth details",
+            "in": "body",
+            "name": "user",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/AuthRequest"
+            },
+            "x-example": {
+              "user": {
+                "password": "123456",
+                "username": "joe1"
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sign in success",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "token": "et.."
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          },
+          "404": {
+            "description": "Sign in error",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "error": "Username or password invalid"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/AuthResponse"
+            }
+          }
+        },
+        "summary": "Sign in user",
+        "tags": [
+          "Session"
+        ]
+      }
+    },
+    "/api/transactions": {
+      "get": {
+        "description": "List all transactions in the database(only user admin)",
+        "operationId": "ApiBankingWeb.TransactionController.index",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "data": [
+                  {
+                    "account_id": 1,
+                    "amount": 2000,
+                    "id": 1,
+                    "inserted_at": "2017-02-08T12:34:55Z",
+                    "kind": "withdraw",
+                    "updated_at": "2017-02-12T13:45:23Z"
+                  },
+                  {
+                    "account_id": 2,
+                    "amount": 100.0,
+                    "id": 2,
+                    "inserted_at": "2020-02-28T15:01:24",
+                    "kind": "transfer",
+                    "transfer": {
+                      "account_received": {
+                        "amount": 600.0,
+                        "id": 1,
+                        "inserted_at": "2020-01-30T20:44:20",
+                        "number": "user.id",
+                        "updated_at": "2020-02-28T15:04:10",
+                        "user_id": 3
+                      },
+                      "account_received_id": 1,
+                      "account_send": {
+                        "amount": 400.0,
+                        "id": 2,
+                        "inserted_at": "2020-02-28T14:57:10",
+                        "number": "user.id",
+                        "updated_at": "2020-02-28T15:03:59",
+                        "user_id": 3
+                      },
+                      "account_send_id": 2,
+                      "id": 3
+                    },
+                    "updated_at": "2020-02-28T15:01:24"
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/TransactionResponse"
+            }
+          }
+        },
+        "summary": "All Transactions",
+        "tags": [
+          "Transaction"
+        ]
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Creates a new withdraw",
+        "operationId": "ApiBankingWeb.TransactionController.create",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The Transaction details",
+            "in": "body",
+            "name": "transaction",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TransactionRequest"
+            },
+            "x-example": {
+              "account_id": 1,
+              "amount": 1000
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Transaction created OK",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "account_id": 2,
+                  "amount": 100.0,
+                  "id": 2,
+                  "inserted_at": "2020-02-28T15:01:24",
+                  "kind": "transfer",
+                  "transfer": {
+                    "account_received": {
+                      "amount": 600.0,
+                      "id": 1,
+                      "inserted_at": "2020-01-30T20:44:20",
+                      "number": "user.id",
+                      "updated_at": "2020-02-28T15:04:10",
+                      "user_id": 3
+                    },
+                    "account_received_id": 1,
+                    "account_send": {
+                      "amount": 400.0,
+                      "id": 2,
+                      "inserted_at": "2020-02-28T14:57:10",
+                      "number": "user.id",
+                      "updated_at": "2020-02-28T15:03:59",
+                      "user_id": 3
+                    },
+                    "account_send_id": 2,
+                    "id": 3
+                  },
+                  "updated_at": "2020-02-28T15:01:24"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/TransactionResponse"
+            }
+          }
+        },
+        "summary": "New withdraw",
+        "tags": [
+          "Transaction"
+        ]
+      }
+    },
+    "/api/transactions/{id}": {
+      "get": {
+        "description": "Show a transaction by ID",
+        "operationId": "ApiBankingWeb.TransactionController.show",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "transaction ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "x-example": 1
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "account_id": 2,
+                  "amount": 100.0,
+                  "id": 2,
+                  "inserted_at": "2020-02-28T15:01:24",
+                  "kind": "transfer",
+                  "transfer": {
+                    "account_received": {
+                      "amount": 600.0,
+                      "id": 1,
+                      "inserted_at": "2020-01-30T20:44:20",
+                      "number": "user.id",
+                      "updated_at": "2020-02-28T15:04:10",
+                      "user_id": 3
+                    },
+                    "account_received_id": 1,
+                    "account_send": {
+                      "amount": 400.0,
+                      "id": 2,
+                      "inserted_at": "2020-02-28T14:57:10",
+                      "number": "user.id",
+                      "updated_at": "2020-02-28T15:03:59",
+                      "user_id": 3
+                    },
+                    "account_send_id": 2,
+                    "id": 3
+                  },
+                  "updated_at": "2020-02-28T15:01:24"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/TransactionResponse"
+            }
+          }
+        },
+        "summary": "Show transaction",
+        "tags": [
+          "Transaction"
+        ]
+      }
+    },
+    "/api/transfers": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Creates a new transfer",
+        "operationId": "ApiBankingWeb.TransferController.create",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The Transfer details",
+            "in": "body",
+            "name": "user",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TransferRequest"
+            },
+            "x-example": {
+              "account_received_id": 2,
+              "account_send_id": 1,
+              "amount": 1000
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Transfer created OK",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "account_received": {
+                    "amount": 700.0,
+                    "id": 1,
+                    "inserted_at": "2020-01-30T20:44:20",
+                    "number": "user.id",
+                    "updated_at": "2020-02-28T15:03:59",
+                    "user_id": 3
+                  },
+                  "account_received_id": 1,
+                  "account_send": {
+                    "amount": 400.0,
+                    "id": 2,
+                    "inserted_at": "2020-02-28T14:57:10",
+                    "number": "user.id",
+                    "updated_at": "2020-02-28T15:03:59",
+                    "user_id": 3
+                  },
+                  "account_send_id": 2,
+                  "amount": 100.0,
+                  "id": 6,
+                  "inserted_at": "2020-02-28T15:03:59",
+                  "transaction": {
+                    "amount": 100.0,
+                    "id": 8,
+                    "inserted_at": "2020-02-28T15:03:59",
+                    "kind": "transfer",
+                    "updated_at": "2020-02-28T15:03:59"
+                  },
+                  "transaction_id": 8,
+                  "updated_at": "2020-02-28T15:03:59"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/TransferResponse"
+            }
+          }
+        },
+        "summary": "Create transfer",
+        "tags": [
+          "Transfer"
+        ]
+      }
+    },
+    "/api/update_user": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Update all attributes of a user",
+        "operationId": "ApiBankingWeb.UserController.update",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The user details",
+            "in": "body",
+            "name": "user",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserRequest"
+            },
+            "x-example": {
+              "user": {
+                "name": "Joe",
+                "username": "joe4"
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated Successfully",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "id": 3,
+                  "inserted_at": "2017-02-08T12:34:55Z",
+                  "name": "Joe",
+                  "updated_at": "2017-02-12T13:45:23Z",
+                  "username": "joe5"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          }
+        },
+        "summary": "Update my user",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/users": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Creates a new user",
+        "operationId": "ApiBankingWeb.UserController.create",
+        "parameters": [
+          {
+            "description": "Bearer *token",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The user details",
+            "in": "body",
+            "name": "user",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserRequest"
+            },
+            "x-example": {
+              "user": {
+                "name": "Joe",
+                "password": "123456",
+                "username": "joe1"
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "User created OK",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "id": 1,
+                  "inserted_at": "2020-02-08T12:34:55Z",
+                  "name": "Joe",
+                  "password": "encode",
+                  "updated_at": "2020-02-12T13:45:23Z",
+                  "username": "joe1"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          }
+        },
+        "summary": "Create user",
+        "tags": [
+          "User"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0"
+}
